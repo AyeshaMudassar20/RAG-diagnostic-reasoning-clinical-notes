@@ -77,3 +77,19 @@ This project follows MIMIC-IV-Ext's data use agreement:
 - `data/sample_documents.jsonl` shows the JSONL schema with three synthetic example records so the format is clear without using real patient data.
 
 To run this project for real, get your own credentialed access to MIMIC-IV-Ext DiReCT via PhysioNet, place the raw dataset as described in `data/README.md`, and run the notebook end-to-end to regenerate `preprocessed_documents.jsonl`, `index.faiss`, and the saved embedding model locally.
+
+## Setup
+
+```bash
+git clone https://github.com/AyeshaMudassar20/RAG-diagnostic-reasoning-clinical-notes.git
+cd RAG-diagnostic-reasoning-clinical-notes
+pip install -r requirements.txt
+```
+
+You will also need:
+
+1. Credentialed access to **MIMIC-IV-Ext DiReCT** on PhysioNet (this is a restricted, credentialed dataset -- it is not bundled with this repo).
+2. The raw dataset placed under `data/Finished/` as described in `data/README.md`.
+3. A GPU is strongly recommended for running `Nlp_Ragg.ipynb` end-to-end (embedding generation and Phi-3-mini inference are both much slower on CPU).
+
+Running the notebook end-to-end produces `preprocessed_documents.jsonl`, `index.faiss`, and a local `embedding_model/` checkpoint -- all required by `app.py` and all excluded from this repo via `.gitignore` (see Data Access & Privacy above).
