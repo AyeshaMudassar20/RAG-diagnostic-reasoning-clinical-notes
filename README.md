@@ -93,3 +93,19 @@ You will also need:
 3. A GPU is strongly recommended for running `Nlp_Ragg.ipynb` end-to-end (embedding generation and Phi-3-mini inference are both much slower on CPU).
 
 Running the notebook end-to-end produces `preprocessed_documents.jsonl`, `index.faiss`, and a local `embedding_model/` checkpoint -- all required by `app.py` and all excluded from this repo via `.gitignore` (see Data Access & Privacy above).
+
+## Usage
+
+**Notebook (`Nlp_Ragg.ipynb`)** -- run in Google Colab (or locally with a GPU) to reproduce the pipeline end-to-end:
+
+1. Upload your own `Finished.zip` (your credentialed MIMIC-IV-Ext DiReCT export).
+2. The notebook extracts it, preprocesses notes into `preprocessed_documents.jsonl`, builds the FAISS index, loads the embedding and generator models, and runs retrieval + generation.
+3. A small self-contained evaluation (Step 12) reports retrieval precision/recall and generation quality on a held-out sample.
+
+**Streamlit app (`app.py`)** -- a simple interface over the same retrieval + generation pipeline, once you have `index.faiss` and `preprocessed_documents.jsonl` locally:
+
+```bash
+streamlit run app.py
+```
+
+Enter a clinical question, and the app will show the retrieved supporting notes alongside a generated, context-grounded answer.
