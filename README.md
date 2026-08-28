@@ -1,5 +1,7 @@
 # RAG for Diagnostic Reasoning in Clinical Notes (DiReCT)
 
+![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg) ![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg) ![Status](https://img.shields.io/badge/status-portfolio%20project-lightgrey.svg)
+
 A Retrieval-Augmented Generation (RAG) system that answers clinical questions grounded in real discharge-summary notes, built on the MIMIC-IV-Ext DiReCT dataset.
 
 ## Overview
