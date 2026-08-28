@@ -132,3 +132,14 @@ This is intentionally simple and should not be read as a claim about real-world 
 - Support hybrid retrieval (dense + BM25) to improve precision on queries with specific clinical terminology.
 - Cache embeddings and the FAISS index as a versioned artifact (e.g. Hugging Face Hub dataset) so `app.py` can run without a full notebook re-run.
 - Add batched/streamed generation and quantized model loading to reduce Streamlit app latency and memory footprint.
+
+## Author
+
+**Ayesha Mudassar**
+GitHub: [@AyeshaMudassar20](https://github.com/AyeshaMudassar20)
+
+## License
+
+This project is licensed under the Apache License 2.0 -- see [LICENSE](LICENSE) for details.
+
+The code in this repository is original; the MIMIC-IV-Ext DiReCT dataset itself is governed separately by its own PhysioNet data use agreement and credentialing requirements, and is not covered by this repository's license.
