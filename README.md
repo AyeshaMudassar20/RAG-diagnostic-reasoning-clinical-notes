@@ -66,3 +66,14 @@ rag-diagnostic-reasoning-clinical-notes/
 ```
 
 `index.faiss` and `preprocessed_documents.jsonl` (the compiled vector index and preprocessed notes used at runtime) are not committed -- see below.
+
+## Data Access & Privacy
+
+This project follows MIMIC-IV-Ext's data use agreement:
+
+- No raw or de-identified clinical note text is committed to this repository.
+- `preprocessed_documents.jsonl` and `index.faiss` are excluded via `.gitignore` -- both are generated from restricted-access data and are only meant to exist locally, on infrastructure covered by your own PhysioNet credentialing.
+- The notebook's saved cell outputs that would have shown real note excerpts (preprocessed note dumps, retrieval previews, generation Q&A pairs, error analysis) have been redacted with a note explaining why; the underlying code is untouched and reproducible.
+- `data/sample_documents.jsonl` shows the JSONL schema with three synthetic example records so the format is clear without using real patient data.
+
+To run this project for real, get your own credentialed access to MIMIC-IV-Ext DiReCT via PhysioNet, place the raw dataset as described in `data/README.md`, and run the notebook end-to-end to regenerate `preprocessed_documents.jsonl`, `index.faiss`, and the saved embedding model locally.
