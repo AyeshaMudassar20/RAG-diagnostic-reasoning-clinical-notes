@@ -23,3 +23,29 @@ Given a clinical question, the system retrieves the most relevant discharge note
 Each note also carries a `diagnosis_category` derived from its folder path in the source dataset (e.g. `Asthma / Severe Asthma Exacerbation`).
 
 **This dataset is not included in this repository, and no real note text appears anywhere in it.** MIMIC-IV-Ext is a credentialed PhysioNet dataset; its data use agreement prohibits public redistribution of note content, including de-identified excerpts. See Data Access & Privacy below.
+
+## Architecture
+
+```
+                 User Clinical Query
+                          |
+                          v
+        Dense Retriever (biomedical sentence embeddings)
+        - pritamdeka/S-Biomed-Roberta-snli-multinli-stsb
+        - 768-dim embeddings, normalized
+        - FAISS IndexFlatIP (inner product == cosine on normalized vectors)
+                          |
+                          v
+                 Top-k Retrieved Notes
+                          |
+                          v
+        Generator: microsoft/Phi-3-mini-4k-instruct
+        - System prompt restricts answers to facts stated in context
+        - Explicitly told to refuse rather than speculate
+        - do_sample=True, temperature=0.3, top_p=0.9, max_new_tokens=250
+                          |
+                          v
+                    Final Answer
+```
+
+The retrieval and generation prompt (`build_rag_prompt`) is deliberately strict: it forbids the model from mentioning findings not present in the retrieved notes and gives it a fixed refusal string to use when context is insufficient, which is a simple guardrail against hallucinated clinical claims.
