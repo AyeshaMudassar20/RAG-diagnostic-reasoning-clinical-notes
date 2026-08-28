@@ -49,3 +49,20 @@ Each note also carries a `diagnosis_category` derived from its folder path in th
 ```
 
 The retrieval and generation prompt (`build_rag_prompt`) is deliberately strict: it forbids the model from mentioning findings not present in the retrieved notes and gives it a fixed refusal string to use when context is insufficient, which is a simple guardrail against hallucinated clinical claims.
+
+## Repository Structure
+
+```
+rag-diagnostic-reasoning-clinical-notes/
+├── Nlp_Ragg.ipynb        # End-to-end notebook: preprocessing, embeddings, FAISS index,
+│                         # retrieval, generation, evaluation (13 steps)
+├── app.py                # Streamlit demo: query box, retrieved-evidence viewer, answer
+├── data/
+│   ├── README.md              # Expected raw dataset layout + preprocessed schema
+│   └── sample_documents.jsonl # 3 synthetic example records (schema only, not real notes)
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+`index.faiss` and `preprocessed_documents.jsonl` (the compiled vector index and preprocessed notes used at runtime) are not committed -- see below.
