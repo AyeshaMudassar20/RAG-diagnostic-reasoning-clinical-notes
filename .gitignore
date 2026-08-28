@@ -19,3 +19,5 @@ Finished.zip
 preprocessed_documents.jsonl
 index.faiss
 
+# Local sentence-transformer checkpoint saved by the notebook
+embedding_model/
