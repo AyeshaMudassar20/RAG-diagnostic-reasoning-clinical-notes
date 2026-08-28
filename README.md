@@ -109,3 +109,18 @@ streamlit run app.py
 ```
 
 Enter a clinical question, and the app will show the retrieved supporting notes alongside a generated, context-grounded answer.
+
+## Evaluation
+
+The notebook includes a lightweight, self-referential evaluation (Step 12), not a rigorous benchmark: 10 documents are sampled, a query is auto-extracted from each (its Chief Complaint, or a fallback sentence), and the retriever is asked to find the source document again among the full 511-note index.
+
+Measured results on that 10-example sample, k=3:
+
+| Metric | Value |
+|---|---|
+| Retrieval Precision@3 | 0.333 |
+| Retrieval Recall@3 | 1.0 |
+
+Recall@3 = 1.0 makes sense given the setup -- the query is derived directly from the same document it should retrieve, so the source document is virtually guaranteed to be a top match. Precision@3 = 0.333 reflects that only 1 of the 3 retrieved slots is the "correct" self-match, with the other 2 being the next-closest notes by embedding similarity (not necessarily wrong, just not the exact source).
+
+This is intentionally simple and should not be read as a claim about real-world retrieval quality against unseen clinical questions -- it mainly verifies that the retrieval pipeline (embedding, indexing, search) is wired correctly end-to-end. Generation quality was checked qualitatively during development rather than with a formal metric; the per-example generation outputs are redacted in the notebook for the same MIMIC-IV-Ext data use agreement reason described above, since they quote retrieved note text.
