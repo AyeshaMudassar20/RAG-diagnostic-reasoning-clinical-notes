@@ -124,3 +124,11 @@ Measured results on that 10-example sample, k=3:
 Recall@3 = 1.0 makes sense given the setup -- the query is derived directly from the same document it should retrieve, so the source document is virtually guaranteed to be a top match. Precision@3 = 0.333 reflects that only 1 of the 3 retrieved slots is the "correct" self-match, with the other 2 being the next-closest notes by embedding similarity (not necessarily wrong, just not the exact source).
 
 This is intentionally simple and should not be read as a claim about real-world retrieval quality against unseen clinical questions -- it mainly verifies that the retrieval pipeline (embedding, indexing, search) is wired correctly end-to-end. Generation quality was checked qualitatively during development rather than with a formal metric; the per-example generation outputs are redacted in the notebook for the same MIMIC-IV-Ext data use agreement reason described above, since they quote retrieved note text.
+
+## Future Improvements
+
+- Replace the self-referential retrieval evaluation with a held-out set of clinician-written questions and human-graded relevance judgments.
+- Add automatic faithfulness/hallucination scoring for generated answers (e.g. NLI-based entailment against retrieved context) instead of relying on manual inspection.
+- Support hybrid retrieval (dense + BM25) to improve precision on queries with specific clinical terminology.
+- Cache embeddings and the FAISS index as a versioned artifact (e.g. Hugging Face Hub dataset) so `app.py` can run without a full notebook re-run.
+- Add batched/streamed generation and quantized model loading to reduce Streamlit app latency and memory footprint.
