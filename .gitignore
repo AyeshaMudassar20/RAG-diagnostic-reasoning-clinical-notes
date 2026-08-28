@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+*.egg-info/
+.DS_Store
+*.log
+
+# Raw MIMIC-IV-Ext DiReCT dataset (credentialed PhysioNet access required,
+# redistribution prohibited by its data use agreement) -- see data/README.md
+data/Finished/
+data/Diagnosis_flowchart/
+Finished.zip
+
+# Preprocessed notes and vector index are generated from the restricted
+# dataset above -- not committed for the same reason. Regenerate locally
+# with Nlp_Ragg.ipynb. See data/sample_documents.jsonl for the schema.
+preprocessed_documents.jsonl
+index.faiss
+
